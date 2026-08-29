@@ -381,6 +381,24 @@ button{ font-family:inherit; cursor:pointer; }
 }
 
 /* ============ CASOS DE ÉXITO ============ */
+.projects{ position:relative; overflow:hidden; }
+.projects::before{
+  content:'';
+  position:absolute; top:0; left:-30%; width:22%; height:100%;
+  background: linear-gradient(100deg, transparent, rgba(62,209,255,.12) 45%, rgba(255,255,255,.2) 50%, rgba(62,209,255,.12) 55%, transparent);
+  transform: skewX(-18deg);
+  pointer-events:none; z-index:0;
+  animation: lightsweep 9s ease-in-out infinite;
+}
+@keyframes lightsweep{
+  0%{ left:-30%; }
+  55%{ left:120%; }
+  100%{ left:120%; }
+}
+@media (prefers-reduced-motion: reduce){ .projects::before{ animation:none; display:none; } }
+
+.section-head, .case-grid{ position:relative; z-index:1; }
+
 .case-grid{
   display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:24px;
 }
