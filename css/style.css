@@ -408,21 +408,24 @@ button{ font-family:inherit; cursor:pointer; }
 .erp-benefit h4{ font-family: var(--font-display); font-size:.85rem; color: var(--cyan); margin-bottom:3px; }
 .erp-benefit p{ color: var(--muted); font-size:.78rem; }
 
-.erp-shots{ position:relative; height:400px; }
+.erp-shots{ position:relative; height:460px; }
 .erp-shot{
-  position:absolute; border-radius:12px; overflow:hidden;
+  position:absolute; border-radius:12px; overflow:hidden; cursor:zoom-in;
   border:1px solid var(--line); box-shadow: 0 20px 40px -12px rgba(0,0,0,.55);
+  transition: box-shadow .3s ease;
 }
-.erp-shot img{ width:100%; height:100%; object-fit:cover; display:block; }
-.shot-reportes{ top:0; left:0; width:56%; height:190px; z-index:2; }
-.shot-login{ top:14px; right:0; width:42%; height:160px; z-index:3; }
-.shot-inventario{ bottom:0; left:8%; width:42%; height:170px; z-index:2; }
-.shot-entregas{ bottom:26px; right:2%; width:50%; height:180px; z-index:3; }
+.erp-shot:hover{ box-shadow: 0 26px 54px -12px rgba(62,209,255,.45); }
+.erp-shot img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform .45s ease; }
+.erp-shot:hover img{ transform: scale(1.15); }
+.shot-reportes{ top:0; left:0; width:60%; height:230px; z-index:2; }
+.shot-login{ top:16px; right:0; width:46%; height:195px; z-index:3; }
+.shot-inventario{ bottom:0; left:6%; width:46%; height:205px; z-index:2; }
+.shot-entregas{ bottom:24px; right:0; width:54%; height:215px; z-index:3; }
 
-[data-reveal].reveal-from-left{ transform: translateX(-60px); }
-[data-reveal].reveal-from-right{ transform: translateX(60px); }
-[data-reveal].reveal-from-top{ transform: translateY(-60px); }
-[data-reveal].reveal-from-bottom{ transform: translateY(60px); }
+[data-reveal].reveal-from-left{ transform: translateX(-110px); }
+[data-reveal].reveal-from-right{ transform: translateX(110px); }
+[data-reveal].reveal-from-top{ transform: translateY(-90px); }
+[data-reveal].reveal-from-bottom{ transform: translateY(90px); }
 [data-reveal].reveal-from-left.is-visible,
 [data-reveal].reveal-from-right.is-visible,
 [data-reveal].reveal-from-top.is-visible,
@@ -660,3 +663,16 @@ button{ font-family:inherit; cursor:pointer; }
 .nav-toggle.active span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
 .nav-toggle.active span:nth-child(2){ opacity:0; }
 .nav-toggle.active span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+/* ============ ERP LIGHTBOX ============ */
+.erp-lightbox{
+  position:fixed; inset:0; z-index:999; display:none;
+  align-items:center; justify-content:center;
+  background: rgba(4,8,18,.92); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  padding: 40px; cursor: zoom-out;
+}
+.erp-lightbox.open{ display:flex; }
+.erp-lightbox img{
+  max-width: min(92vw, 1100px); max-height: 88vh; border-radius:14px;
+  border:1px solid var(--line); box-shadow: 0 30px 80px -20px rgba(0,0,0,.7);
+}

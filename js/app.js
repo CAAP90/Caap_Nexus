@@ -59,6 +59,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+    /* ============ ERP LIGHTBOX ============ */
+  const erpShots = document.querySelectorAll('.erp-shot img');
+  const erpLightbox = document.getElementById('erpLightbox');
+  const erpLightboxImg = document.getElementById('erpLightboxImg');
+  if (erpLightbox && erpLightboxImg) {
+    erpShots.forEach(img => {
+      img.addEventListener('click', () => {
+        erpLightboxImg.src = img.src;
+        erpLightboxImg.alt = img.alt;
+        erpLightbox.classList.add('open');
+      });
+    });
+    erpLightbox.addEventListener('click', () => {
+      erpLightbox.classList.remove('open');
+    });
+  }
+
+  /* ============ FORMULARIO -> WHATSAPP ============ */
+
   /* ============ FORMULARIO -> WHATSAPP ============ */
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
