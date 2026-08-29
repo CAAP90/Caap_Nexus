@@ -380,6 +380,52 @@ button{ font-family:inherit; cursor:pointer; }
   width:fit-content;
 }
 
+/* ============ CASOS DE ÉXITO ============ */
+.case-grid{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:24px;
+}
+.case-card{
+  background: var(--card); border:1px solid var(--line); border-radius:18px;
+  padding: 28px 26px; display:flex; flex-direction:column; gap:14px;
+  transition: transform .3s ease, border-color .3s ease, background .3s ease;
+}
+.case-card:hover{
+  transform: translateY(-6px); border-color: rgba(62,209,255,.4); background: var(--card-hi);
+}
+.case-head{ display:flex; align-items:center; gap:12px; }
+.case-logo{
+  width:44px; height:44px; border-radius:10px; overflow:hidden; flex-shrink:0;
+  background: var(--card-hi); display:flex; align-items:center; justify-content:center;
+}
+.case-logo img{ width:100%; height:100%; object-fit:cover; }
+.case-logo--light{ background:#f4efe4; }
+.case-head h3{ font-family: var(--font-display); font-size:1.05rem; font-weight:600; margin-top:2px; }
+.case-status{
+  font-family: var(--font-mono); font-size:.62rem; text-transform:uppercase; letter-spacing:.08em;
+  color: var(--cyan); border:1px solid rgba(62,209,255,.35); padding:2px 8px; border-radius:100px;
+}
+.case-problem{ color: var(--white); font-size:.94rem; line-height:1.55; }
+.case-solution{ color: var(--muted); font-size:.86rem; line-height:1.55; }
+.case-solution strong{ color: var(--cyan); font-weight:600; }
+.case-metric{ display:flex; flex-direction:column; gap:6px; margin-top:2px; }
+.case-metric-row{ display:flex; align-items:center; gap:10px; font-family: var(--font-mono); font-size:.72rem; color: var(--muted-2); }
+.case-metric-row span:first-child{ width:42px; flex-shrink:0; }
+.case-bar{ flex:1; height:7px; background: var(--bg); border-radius:4px; overflow:hidden; }
+.case-bar-fill{ height:100%; background: var(--grad); border-radius:4px; }
+.case-metric-value{ color: var(--cyan); font-weight:600; flex-shrink:0; }
+.case-quote{
+  border-left:2px solid var(--cyan); padding-left:14px; color: var(--muted); font-size:.86rem;
+  font-style:italic; line-height:1.55;
+}
+.case-link{
+  font-family: var(--font-mono); font-size:.78rem; color: var(--cyan); margin-top:auto; width:fit-content;
+}
+.case-link:hover{ text-decoration:underline; }
+
+@media (max-width: 760px){
+  .case-grid{ grid-template-columns:1fr; }
+}
+
 @media (max-width: 860px){
   .accordion{ flex-direction:column; align-items:stretch; }
   .acc-item{ width:100%; flex-direction:row; align-items:stretch; margin-left:0 !important; }
