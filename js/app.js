@@ -92,22 +92,21 @@ document.addEventListener('DOMContentLoaded', () => {
       window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     });
   }
-
-  /* ============ HERO: RED DE NODOS (canvas) ============ */
-  const canvas = document.getElementById('nexusCanvas');
-  if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  /* ============ FUNCION REUTILIZABLE: RED DE NODOS ============ */
+  function initNetworkCanvas(canvas) {
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let width, height, nodes;
-    const hero = canvas.parentElement;
+    const container = canvas.parentElement;
 
     const COLORS = { blue: '30,95,255', cyan: '62,209,255' };
 
     function resize() {
-      width = canvas.width = hero.offsetWidth * devicePixelRatio;
-      height = canvas.height = hero.offsetHeight * devicePixelRatio;
-      canvas.style.width = hero.offsetWidth + 'px';
-      canvas.style.height = hero.offsetHeight + 'px';
-      const count = Math.min(70, Math.floor((hero.offsetWidth * hero.offsetHeight) / 18000));
+      width = canvas.width = container.offsetWidth * devicePixelRatio;
+      height = canvas.height = container.offsetHeight * devicePixelRatio;
+      canvas.style.width = container.offsetWidth + 'px';
+      canvas.style.height = container.offsetHeight + 'px';
+      const count = Math.min(70, Math.floor((container.offsetWidth * container.offsetHeight) / 18000));
       nodes = Array.from({ length: count }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
@@ -118,19 +117,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const mouse = { x: null, y: null };
-    hero.addEventListener('mousemove', (e) => {
-      const rect = hero.getBoundingClientRect();
+    container.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
       mouse.x = (e.clientX - rect.left) * devicePixelRatio;
       mouse.y = (e.clientY - rect.top) * devicePixelRatio;
     });
-    hero.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+    container.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
 
     const maxDist = 150 * devicePixelRatio;
     const maxDistSq = maxDist * maxDist;
-
-    // ---- paquetes de datos viajando por la red ----
     let packets = [];
-    let frameCount = 0;
 
     function currentEdges() {
       const edges = [];
@@ -151,12 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (Math.random() > 0.09) return;
       const [i, j] = edges[Math.floor(Math.random() * edges.length)];
       const reversed = Math.random() > 0.5;
-      packets.push({
-        a: reversed ? j : i,
-        b: reversed ? i : j,
-        t: 0,
-        speed: 0.007 + Math.random() * 0.01
-      });
+      packets.push({ a: reversed ? j : i, b: reversed ? i : j, t: 0, speed: 0.007 + Math.random() * 0.01 });
     }
 
     function drawPackets() {
@@ -165,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!a || !b) continue;
         const x = a.x + (b.x - a.x) * p.t;
         const y = a.y + (b.y - a.y) * p.t;
-        const fade = Math.sin(p.t * Math.PI); // fade in/out along the path
+        const fade = Math.sin(p.t * Math.PI);
         ctx.save();
         ctx.shadowBlur = 16 * devicePixelRatio;
         ctx.shadowColor = `rgba(${COLORS.cyan}, ${fade})`;
@@ -181,18 +172,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function tick() {
       ctx.clearRect(0, 0, width, height);
-      frameCount++;
-
-      // update
       for (const n of nodes) {
         n.x += n.vx; n.y += n.vy;
         if (n.x < 0 || n.x > width) n.vx *= -1;
         if (n.y < 0 || n.y > height) n.vy *= -1;
       }
-
       const edges = currentEdges();
-
-      // connections
       for (const [i, j] of edges) {
         const a = nodes[i], b = nodes[j];
         const dx = a.x - b.x, dy = a.y - b.y;
@@ -205,8 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.lineTo(b.x, b.y);
         ctx.stroke();
       }
-
-      // mouse connections
       if (mouse.x !== null) {
         for (const n of nodes) {
           const dx = n.x - mouse.x, dy = n.y - mouse.y;
@@ -222,18 +205,78 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       }
-
-      // dots
       for (const n of nodes) {
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${COLORS.cyan}, 0.85)`;
         ctx.fill();
       }
-
-      // flowing data packets
       maybeSpawnPacket(edges);
       drawPackets();
+      requestAnimationFrame(tick);
+    }
+
+    resize();
+    tick();
+    window.addEventListener('resize', resize);
+  }
+
+  /* ============ FUNCION NUEVA: TUNEL DE LINEAS CONVERGENTES ============ */
+  function initTunnelCanvas(canvas) {
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width, height, cx, cy, spokes, dots, maxR;
+    const container = canvas.parentElement;
+    const COLOR = '62,209,255';
+
+    function resize() {
+      width = canvas.width = container.offsetWidth * devicePixelRatio;
+      height = canvas.height = container.offsetHeight * devicePixelRatio;
+      canvas.style.width = container.offsetWidth + 'px';
+      canvas.style.height = container.offsetHeight + 'px';
+      cx = width / 2;
+      cy = height / 2;
+      maxR = Math.hypot(width, height) / 2;
+      const spokeCount = 48;
+      spokes = Array.from({ length: spokeCount }, (_, i) => (i / spokeCount) * Math.PI * 2);
+      dots = spokes.map(angle => ({
+        angle,
+        r: Math.random() * maxR,
+        speed: (0.55 + Math.random() * 0.85) * devicePixelRatio
+      }));
+    }
+
+    function tick() {
+      ctx.clearRect(0, 0, width, height);
+
+      // lineas radiales tenues (la "rejilla")
+      for (const angle of spokes) {
+        const x2 = cx + Math.cos(angle) * maxR * 1.5;
+        const y2 = cy + Math.sin(angle) * maxR * 1.5;
+        ctx.strokeStyle = `rgba(${COLOR}, 0.07)`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+
+      // puntos que viajan del centro hacia afuera
+      for (const d of dots) {
+        d.r += d.speed;
+        if (d.r > maxR) d.r = 0;
+        const x = cx + Math.cos(d.angle) * d.r;
+        const y = cy + Math.sin(d.angle) * d.r;
+        const fade = 1 - d.r / maxR;
+        ctx.save();
+        ctx.shadowBlur = 8 * devicePixelRatio;
+        ctx.shadowColor = `rgba(${COLOR}, ${fade})`;
+        ctx.beginPath();
+        ctx.arc(x, y, 2 * devicePixelRatio, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${fade * 0.9})`;
+        ctx.fill();
+        ctx.restore();
+      }
 
       requestAnimationFrame(tick);
     }
@@ -243,4 +286,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', resize);
   }
 
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    initTunnelCanvas(document.getElementById('nexusCanvas'));
+    initNetworkCanvas(document.getElementById('footerCanvas'));
+  }
+
 });
+
