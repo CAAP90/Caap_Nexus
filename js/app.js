@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-    /* ============ ERP LIGHTBOX ============ */
+     /* ============ ERP LIGHTBOX ============ */
   const erpShots = document.querySelectorAll('.erp-shot img');
   const erpLightbox = document.getElementById('erpLightbox');
   const erpLightboxImg = document.getElementById('erpLightboxImg');
@@ -69,9 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
         erpLightboxImg.src = img.src;
         erpLightboxImg.alt = img.alt;
         erpLightbox.classList.add('open');
+        history.pushState({ erpLightbox: true }, '');
       });
     });
     erpLightbox.addEventListener('click', () => {
+      if (erpLightbox.classList.contains('open')) history.back();
+    });
+    window.addEventListener('popstate', () => {
       erpLightbox.classList.remove('open');
     });
   }
