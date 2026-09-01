@@ -80,7 +80,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-    /* ============ MODAL POLITICA DE DATOS ============ */
+    /* ============ BOTON VOLVER ARRIBA ============ */
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  if (scrollTopBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 600) scrollTopBtn.classList.add('visible');
+      else scrollTopBtn.classList.remove('visible');
+    }, { passive: true });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ============ MODAL POLITICA DE DATOS ============ */
   const privacyLink = document.getElementById('privacyLink');
   const privacyModal = document.getElementById('privacyModal');
   const privacyModalClose = document.getElementById('privacyModalClose');
@@ -231,14 +243,22 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillStyle = `rgba(${COLORS.cyan}, 0.85)`;
         ctx.fill();
       }
-      maybeSpawnPacket(edges);
+            maybeSpawnPacket(edges);
       drawPackets();
-      requestAnimationFrame(tick);
     }
 
     resize();
-    tick();
     window.addEventListener('resize', resize);
+
+    let rafId = null, running = false;
+    function loop(){ tick(); rafId = requestAnimationFrame(loop); }
+    function start(){ if (!running) { running = true; loop(); } }
+    function stop(){ running = false; if (rafId) cancelAnimationFrame(rafId); }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { entry.isIntersecting ? start() : stop(); });
+    }, { threshold: 0 });
+    io.observe(container);
   }
 
   /* ============ FUNCION NUEVA: TUNEL DE LINEAS CONVERGENTES ============ */
@@ -294,16 +314,23 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.beginPath();
         ctx.arc(x, y, 2 * devicePixelRatio, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${fade * 0.9})`;
-        ctx.fill();
+                ctx.fill();
         ctx.restore();
       }
-
-      requestAnimationFrame(tick);
     }
 
     resize();
-    tick();
     window.addEventListener('resize', resize);
+
+    let rafId = null, running = false;
+    function loop(){ tick(); rafId = requestAnimationFrame(loop); }
+    function start(){ if (!running) { running = true; loop(); } }
+    function stop(){ running = false; if (rafId) cancelAnimationFrame(rafId); }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { entry.isIntersecting ? start() : stop(); });
+    }, { threshold: 0 });
+    io.observe(container);
   }
 
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
