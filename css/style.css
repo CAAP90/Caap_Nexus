@@ -768,3 +768,29 @@ button{ font-family:inherit; cursor:pointer; }
 .scroll-top.visible{ opacity:1; pointer-events:auto; transform:none; }
 .scroll-top:hover{ border-color: rgba(62,209,255,.5); }
 .scroll-top svg{ width:20px; height:20px; }
+
+/* ============ BLOG ============ */
+.blog-hero{ padding-top:160px; text-align:center; max-width:720px; margin:0 auto; }
+.blog-hero .section-title{ margin-top:10px; }
+.blog-list-section{ padding-top:20px; }
+.blog-list{ display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:22px; }
+.blog-card{
+  display:block; background: var(--card); border:1px solid var(--line); border-radius:16px;
+  padding:26px; transition: transform .3s ease, border-color .3s ease, background .3s ease;
+}
+.blog-card:hover{ transform: translateY(-4px); border-color: rgba(62,209,255,.4); background: var(--card-hi); }
+.blog-date{ font-family: var(--font-mono); color: var(--cyan); font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; }
+.blog-card h2{ font-family: var(--font-display); color: var(--white); font-size:1.15rem; margin:10px 0; }
+.blog-card p{ color: var(--muted); font-size:.9rem; margin-bottom:14px; }
+.blog-read{ font-family: var(--font-mono); color: var(--cyan); font-size:.8rem; }
+
+.blog-post{ max-width:720px; margin:0 auto; padding-top:150px; }
+.blog-back{ display:inline-block; color: var(--cyan); font-family: var(--font-mono); font-size:.8rem; margin-bottom:18px; }
+.blog-post h1{ font-family: var(--font-display); font-size: clamp(1.8rem,4vw,2.6rem); margin:10px 0 24px; line-height:1.2; }
+.blog-post h2{ font-family: var(--font-display); font-size:1.3rem; margin:34px 0 12px; color: var(--white); }
+.blog-post p{ color: var(--muted); font-size:1rem; line-height:1.7; margin-bottom:16px; }
+.blog-post ul{ margin: 0 0 16px 20px; }
+.blog-post li{ color: var(--muted); font-size:1rem; line-height:1.7; margin-bottom:6px; list-style:disc; }
+.blog-post strong{ color: var(--white); }
+.blog-post a:not(.btn){ color: var(--cyan); text-decoration:underline; }
+.blog-post .btn{ margin-top:10px; }
