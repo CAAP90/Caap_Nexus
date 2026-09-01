@@ -80,7 +80,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ============ FORMULARIO -> WHATSAPP ============ */
+    /* ============ MODAL POLITICA DE DATOS ============ */
+  const privacyLink = document.getElementById('privacyLink');
+  const privacyModal = document.getElementById('privacyModal');
+  const privacyModalClose = document.getElementById('privacyModalClose');
+  if (privacyLink && privacyModal) {
+    privacyLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      privacyModal.classList.add('open');
+      history.pushState({ privacyModal: true }, '');
+    });
+    const closePrivacy = () => { if (privacyModal.classList.contains('open')) history.back(); };
+    privacyModalClose.addEventListener('click', closePrivacy);
+    privacyModal.addEventListener('click', (e) => { if (e.target === privacyModal) closePrivacy(); });
+    window.addEventListener('popstate', () => {
+      privacyModal.classList.remove('open');
+    });
+  }
 
   /* ============ FORMULARIO -> WHATSAPP ============ */
   const contactForm = document.getElementById('contactForm');

@@ -710,3 +710,32 @@ button{ font-family:inherit; cursor:pointer; }
   max-width: min(92vw, 1100px); max-height: 88vh; border-radius:14px;
   border:1px solid var(--line); box-shadow: 0 30px 80px -20px rgba(0,0,0,.7);
 }
+
+/* ============ ATRIBUCION DE TESTIMONIOS ============ */
+.case-quote cite{
+  display:block; margin-top:8px; font-style:normal;
+  color: var(--cyan); font-size:.76rem; font-weight:600;
+}
+
+/* ============ MODAL POLITICA DE DATOS ============ */
+.footer-privacy-link{ color: var(--muted-2); text-decoration:underline; }
+.footer-privacy-link:hover{ color: var(--cyan); }
+.privacy-modal{
+  position:fixed; inset:0; z-index:999; display:none;
+  align-items:center; justify-content:center;
+  background: rgba(4,8,18,.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  padding: 24px;
+}
+.privacy-modal.open{ display:flex; }
+.privacy-modal-box{
+  position:relative; max-width:560px; background: var(--card); border:1px solid var(--line);
+  border-radius:16px; padding: 32px 28px; box-shadow: 0 30px 80px -20px rgba(0,0,0,.7);
+}
+.privacy-modal-box h3{ font-family: var(--font-display); color: var(--white); margin-bottom:14px; }
+.privacy-modal-box p{ color: var(--muted); font-size:.9rem; line-height:1.6; margin-bottom:12px; }
+.privacy-modal-box a{ color: var(--cyan); text-decoration:underline; }
+.privacy-modal-close{
+  position:absolute; top:14px; right:14px; background:none; border:none; color: var(--muted);
+  font-size:1.4rem; line-height:1; cursor:pointer;
+}
+.privacy-modal-close:hover{ color: var(--cyan); }
