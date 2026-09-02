@@ -794,3 +794,22 @@ button{ font-family:inherit; cursor:pointer; }
 .blog-post strong{ color: var(--white); }
 .blog-post a:not(.btn){ color: var(--cyan); text-decoration:underline; }
 .blog-post .btn{ margin-top:10px; }
+
+/* ============ FAQ ============ */
+.faq-list{ max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
+.faq-item{
+  background: var(--card); border:1px solid var(--line); border-radius:14px;
+  padding: 18px 22px; transition: border-color .25s ease, background .25s ease;
+}
+.faq-item[open]{ border-color: rgba(62,209,255,.4); background: var(--card-hi); }
+.faq-item summary{
+  cursor:pointer; font-family: var(--font-display); font-weight:600; color: var(--white);
+  font-size:1rem; list-style:none; display:flex; align-items:center; justify-content:space-between; gap:14px;
+}
+.faq-item summary::-webkit-details-marker{ display:none; }
+.faq-item summary::after{
+  content:'+'; font-family: var(--font-mono); color: var(--cyan); font-size:1.3rem; flex-shrink:0;
+  transition: transform .25s ease;
+}
+.faq-item[open] summary::after{ content:'−'; }
+.faq-item p{ color: var(--muted); font-size:.92rem; line-height:1.6; margin-top:12px; }
