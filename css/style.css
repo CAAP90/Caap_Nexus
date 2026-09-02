@@ -572,7 +572,7 @@ button{ font-family:inherit; cursor:pointer; }
 .mv-card p{ color: var(--muted); font-size:.95rem; }
 
 /* ============ CONTACT ============ */
-.contact{ position:relative; overflow:hidden; }
+.contact{ position:relative; overflow:hidden; background: var(--bg-alt); }
 .contact::before{
   content:'';
   position:absolute; top:-120px; right:-80px; width:380px; height:380px;
@@ -813,3 +813,18 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .faq-item[open] summary::after{ content:'−'; }
 .faq-item p{ color: var(--muted); font-size:.92rem; line-height:1.6; margin-top:12px; }
+
+.faq{ position:relative; overflow:hidden; }
+.faq::before{
+  content:'';
+  position:absolute; top:-120px; left:-100px; width:420px; height:420px;
+  background: radial-gradient(circle, rgba(30,95,255,.16), transparent 70%);
+  pointer-events:none; z-index:0;
+}
+.faq::after{
+  content:'';
+  position:absolute; bottom:-140px; right:-80px; width:360px; height:360px;
+  background: radial-gradient(circle, rgba(62,209,255,.12), transparent 70%);
+  pointer-events:none; z-index:0;
+}
+.faq .section-head, .faq .faq-list{ position:relative; z-index:1; }
