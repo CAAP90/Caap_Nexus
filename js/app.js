@@ -138,7 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
       height = canvas.height = container.offsetHeight * devicePixelRatio;
       canvas.style.width = container.offsetWidth + 'px';
       canvas.style.height = container.offsetHeight + 'px';
-      const count = Math.min(70, Math.floor((container.offsetWidth * container.offsetHeight) / 18000));
+      const divisor = container.offsetWidth < 760 ? 32000 : 18000;
+      const count = Math.min(70, Math.floor((container.offsetWidth * container.offsetHeight) / divisor));
       nodes = Array.from({ length: count }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
@@ -243,23 +244,28 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillStyle = `rgba(${COLORS.cyan}, 0.85)`;
         ctx.fill();
       }
-            maybeSpawnPacket(edges);
+      
+      maybeSpawnPacket(edges);
       drawPackets();
     }
 
     resize();
     window.addEventListener('resize', resize);
 
-    let rafId = null, running = false;
-    function loop(){ tick(); rafId = requestAnimationFrame(loop); }
-    function start(){ if (!running) { running = true; loop(); } }
+    let rafId = null, running = false, lastFrame = 0;
+    const frameInterval = 1000 / 30;
+    function loop(ts){
+      if (ts - lastFrame >= frameInterval) { tick(); lastFrame = ts; }
+      rafId = requestAnimationFrame(loop);
+    }
+    function start(){ if (!running) { running = true; loop(0); } }
     function stop(){ running = false; if (rafId) cancelAnimationFrame(rafId); }
 
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => { entry.isIntersecting ? start() : stop(); });
     }, { threshold: 0 });
     io.observe(container);
-  }
+  }      
 
   /* ============ FUNCION NUEVA: TUNEL DE LINEAS CONVERGENTES ============ */
   function initTunnelCanvas(canvas) {
@@ -277,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cx = width / 2;
       cy = height / 2;
       maxR = Math.hypot(width, height) / 2;
-      const spokeCount = 48;
+      const spokeCount = container.offsetWidth < 760 ? 26 : 48;
       spokes = Array.from({ length: spokeCount }, (_, i) => (i / spokeCount) * Math.PI * 2);
       dots = spokes.map(angle => ({
         angle,
@@ -322,9 +328,13 @@ document.addEventListener('DOMContentLoaded', () => {
     resize();
     window.addEventListener('resize', resize);
 
-    let rafId = null, running = false;
-    function loop(){ tick(); rafId = requestAnimationFrame(loop); }
-    function start(){ if (!running) { running = true; loop(); } }
+    let rafId = null, running = false, lastFrame = 0;
+    const frameInterval = 1000 / 30;
+    function loop(ts){
+      if (ts - lastFrame >= frameInterval) { tick(); lastFrame = ts; }
+      rafId = requestAnimationFrame(loop);
+    }
+    function start(){ if (!running) { running = true; loop(0); } }
     function stop(){ running = false; if (rafId) cancelAnimationFrame(rafId); }
 
     const io = new IntersectionObserver((entries) => {
