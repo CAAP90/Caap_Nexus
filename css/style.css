@@ -78,6 +78,19 @@ button{ font-family:inherit; cursor:pointer; }
   transition: background .35s ease, padding .35s ease, border-color .35s ease;
   border-bottom: 1px solid transparent;
 }
+.header-snake{
+  position:absolute; bottom:0; left:0; height:2px; width:140px;
+  background: linear-gradient(90deg, transparent, var(--cyan), #fff, var(--cyan), transparent);
+  filter: drop-shadow(0 0 6px var(--cyan));
+  pointer-events:none; z-index:1;
+  animation: headerSnakeMove 5s linear infinite;
+}
+@keyframes headerSnakeMove{
+  0%{ transform: translateX(-160px); }
+  100%{ transform: translateX(100vw); }
+}
+@media (prefers-reduced-motion: reduce){ .header-snake{ animation:none; display:none; } }
+
 .site-header.scrolled{
   background: rgba(6,11,24,0.82);
   backdrop-filter: blur(14px);
