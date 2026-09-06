@@ -169,14 +169,17 @@ button{ font-family:inherit; cursor:pointer; }
   display:inline-flex; align-items:center; gap:9px;
 }
 .eyebrow-dot{
+  position:relative;
   width:7px; height:7px; border-radius:50%; background: var(--cyan);
-  box-shadow: 0 0 0 0 rgba(62,209,255,.6);
+}
+.eyebrow-dot::after{
+  content:''; position:absolute; inset:-3px; border-radius:50%;
+  border:2px solid rgba(62,209,255,.6);
   animation: dotpulse 2s ease-out infinite;
 }
 @keyframes dotpulse{
-  0%{ box-shadow: 0 0 0 0 rgba(62,209,255,.55); }
-  70%{ box-shadow: 0 0 0 8px rgba(62,209,255,0); }
-  100%{ box-shadow: 0 0 0 0 rgba(62,209,255,0); }
+  0%{ transform: scale(.4); opacity:.8; }
+  100%{ transform: scale(2.4); opacity:0; }
 }
 
 .hero-blob{
@@ -493,22 +496,18 @@ button{ font-family:inherit; cursor:pointer; }
   pointer-events:none; z-index:0;
   animation: lightsweep 7s ease-in-out infinite;
 }
-.projects::after{
+.projects::before{
   content:'';
-  position:absolute; inset:0; pointer-events:none; z-index:0;
-  background-image:
-    radial-gradient(2px 2px at 12% 22%, rgba(62,209,255,.9), transparent),
-    radial-gradient(1.5px 1.5px at 30% 68%, rgba(255,255,255,.8), transparent),
-    radial-gradient(2px 2px at 52% 15%, rgba(62,209,255,.8), transparent),
-    radial-gradient(1.5px 1.5px at 70% 55%, rgba(255,255,255,.7), transparent),
-    radial-gradient(2px 2px at 88% 30%, rgba(62,209,255,.85), transparent),
-    radial-gradient(1.5px 1.5px at 20% 85%, rgba(255,255,255,.6), transparent);
-  animation: twinkle-a 4s ease-in-out infinite;
+  position:absolute; top:0; left:0; width:6%; height:100%;
+  background: linear-gradient(100deg, transparent, rgba(62,209,255,.3) 46%, rgba(255,255,255,.5) 50%, rgba(62,209,255,.3) 54%, transparent);
+  pointer-events:none; z-index:0;
+  animation: lightsweep 7s ease-in-out infinite;
+  will-change: transform;
 }
 @keyframes lightsweep{
-  0%{ left:-30%; }
-  60%{ left:120%; }
-  100%{ left:120%; }
+  0%{ transform: skewX(-18deg) translateX(-150%); }
+  60%{ transform: skewX(-18deg) translateX(2000%); }
+  100%{ transform: skewX(-18deg) translateX(2000%); }
 }
 @media (prefers-reduced-motion: reduce){ .projects::before, .projects::after{ animation:none; } }
 .section-head, .case-grid{ position:relative; z-index:1; }
