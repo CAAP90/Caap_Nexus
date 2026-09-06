@@ -448,7 +448,7 @@ button{ font-family:inherit; cursor:pointer; }
 .erp-shot img{ width:100%; height:100%; object-fit:contain; display:block; transition: transform .45s ease; }
 .erp-shot:hover img{ transform: scale(1.08); }
 .shot-reportes{ top:0; left:0; width:76%; aspect-ratio: 1.9; z-index:2; }
-.shot-login{ bottom:0; right:0; width:52%; aspect-ratio: 1.9; z-index:3; }
+.shot-login{ bottom:0; right:0; width:76%; aspect-ratio: 1.9; z-index:3; }
 
 @keyframes erpFloat{
   0%, 100%{ transform: translateY(0); }
