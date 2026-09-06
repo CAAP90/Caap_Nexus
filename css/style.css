@@ -846,3 +846,9 @@ button{ font-family:inherit; cursor:pointer; }
   pointer-events:none; z-index:0;
 }
 .faq .section-head, .faq .faq-list{ position:relative; z-index:1; }
+
+/* ============ BLOG PREVIEW (home) ============ */
+.blog-preview{ background: var(--bg-alt); }
+.blog-preview-grid{ max-width:480px; margin:0 auto 30px; }
+.blog-preview-grid .blog-card h3{ font-family: var(--font-display); color: var(--white); font-size:1.15rem; margin:10px 0; }
+.blog-preview-cta{ text-align:center; }
