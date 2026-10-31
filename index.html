@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CAAP NEXUS — Conecta. Gestiona. Crece.</title>
-<meta name="description" content="CAAP NEXUS diseña y desarrolla sistemas ERP, gestión de proyectos y páginas web a la medida de tu negocio.">
+<meta name="description" content="CAAP NEXUS diseña y desarrolla sistemas ERP con inventario complementado (escáner, etiquetas QR y alertas), gestión de proyectos y páginas web a la medida de tu negocio.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="CAAP NEXUS — Conecta. Gestiona. Crece.">
-<meta property="og:description" content="CAAP NEXUS diseña y desarrolla sistemas ERP, gestión de proyectos y páginas web a la medida de tu negocio.">
+<meta property="og:description" content="CAAP NEXUS diseña y desarrolla sistemas ERP con inventario complementado (escáner, etiquetas QR y alertas), gestión de proyectos y páginas web a la medida de tu negocio.">
 <meta property="og:image" content="https://caapnexus.online/assets/img/Caap_Nexus_negro.webp">
 <meta property="og:url" content="https://caapnexus.online">
 <meta property="og:locale" content="es_CO">
@@ -16,7 +16,7 @@
 <meta property="og:image:height" content="512">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CAAP NEXUS — Conecta. Gestiona. Crece.">
-<meta name="twitter:description" content="CAAP NEXUS diseña y desarrolla sistemas ERP, gestión de proyectos y páginas web a la medida de tu negocio.">
+<meta name="twitter:description" content="CAAP NEXUS diseña y desarrolla sistemas ERP con inventario complementado (escáner, etiquetas QR y alertas), gestión de proyectos y páginas web a la medida de tu negocio.">
 <meta name="twitter:image" content="https://caapnexus.online/assets/img/Caap_Nexus_negro.webp">
 <link rel="canonical" href="https://caapnexus.online/">
 <link rel="icon" href="assets/img/Caap_Nexus_negro.webp">
@@ -46,13 +46,16 @@
   "email": "cristianaponte77@gmail.com",
   "areaServed": "CO",
   "priceRange": "$$",
-   "foundingDate": "2026-01",
-  "founder": {
-    "@type": "Person",
-    "name": "Cristian Alexander Aponte Pinzón",
-    "jobTitle": "Fundador y Desarrollador"
-  },
+  "foundingDate": "2026-01",
   "makesOffer": [
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Inventario complementado",
+        "description": "Módulo de inventario con escáner desde el celular, etiquetas QR, centro de alertas y stock en tiempo real."
+      }
+    },
     {
       "@type": "Offer",
       "itemOffered": {
@@ -107,6 +110,7 @@
 <body>
 
 <div class="grain"></div>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <!-- ===== HEADER ===== -->
 <header class="site-header" id="siteHeader">
@@ -121,6 +125,7 @@
       <a href="#inicio" class="nav-link">Inicio</a>
       <a href="#servicios" class="nav-link">Servicios</a>
       <a href="#erp" class="nav-link">ERP</a>
+      <a href="#inventario" class="nav-link">Inventario</a>
       <a href="#proyectos" class="nav-link">Casos de éxito</a>
       <a href="blog/index.html" class="nav-link">Blog</a>
       <a href="#nosotros" class="nav-link">Nosotros</a>
@@ -155,6 +160,11 @@
       <a href="#servicios" class="btn btn-primary">Ver servicios</a>
       <a href="#contacto" class="btn btn-ghost">Hablar por WhatsApp</a>
     </div>
+    <a href="#inventario" class="hero-new" data-reveal>
+      <span class="hero-new-tag">Nuevo</span>
+      Inventario complementado: escáner, etiquetas QR y alertas
+      <span aria-hidden="true">→</span>
+    </a>
   </div>
 
   <a href="#servicios" class="scroll-cue" aria-label="Bajar">
@@ -165,15 +175,15 @@
 <!-- ===== INDICADORES DE CONFIANZA ===== -->
 <section class="trust-bar" data-reveal>
   <div class="trust-item">
-    <span class="trust-number">4</span>
+    <span class="trust-number" data-count="4">4</span>
     <span class="trust-label">Sitios web entregados</span>
   </div>
   <div class="trust-item">
-    <span class="trust-number">1</span>
+    <span class="trust-number" data-count="1">1</span>
     <span class="trust-label">ERP propio construido</span>
   </div>
   <div class="trust-item">
-    <span class="trust-number">100%</span>
+    <span class="trust-number" data-count="100" data-suffix="%">100%</span>
     <span class="trust-label">Proyectos hechos a la medida</span>
   </div>
   <div class="trust-item">
@@ -218,15 +228,12 @@
       <span class="service-tag">Optimizadas para velocidad</span>
     </article>
 
-    <article class="service-card" data-reveal>
-      <div class="service-icon">
-        <svg viewBox="0 0 48 48" fill="none"><path d="M24 6l4 8 9 1-6.5 6.5L32 30l-8-4-8 4 1.5-8.5L10 15l9-1 5-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 38h20M18 43h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </div>
-      <h3>Automatización</h3>
-      <p>Formularios, notificaciones y flujos conectados a WhatsApp y correo para que nada se pierda entre pasos manuales.</p>
-      <span class="service-tag">Menos trabajo repetitivo</span>
-    </article>
   </div>
+
+  <p class="services-extra" data-reveal>
+    <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 6l4 8 9 1-6.5 6.5L32 30l-8-4-8 4 1.5-8.5L10 15l9-1 5-8z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg>
+    También hacemos <strong>automatizaciones</strong> a la medida: formularios, notificaciones y flujos conectados a WhatsApp y correo. <a href="#contacto">Pregúntanos por tu caso →</a>
+  </p>
 </section>
 
 <!-- ===== ERP TEASER ===== -->
@@ -266,12 +273,106 @@
     </div>
 </section>
 
+<!-- ===== INVENTARIO COMPLEMENTADO ===== -->
+<section class="section inventory" id="inventario">
+  <div class="section-head" data-reveal>
+    <p class="eyebrow"><span class="eyebrow-dot"></span> Nuevo · Inventario complementado</p>
+    <h2 class="section-title">Tu bodega bajo control, desde el computador o el celular</h2>
+    <p class="section-sub">El módulo de inventario de CAAP NEXUS ERP: escaneas, etiquetas con QR y el sistema te avisa a tiempo. Así se ve funcionando de verdad.</p>
+  </div>
+
+  <div class="inv-stage">
+    <!-- Captura real del sistema en un navegador -->
+    <figure class="inv-browser reveal-from-left" data-reveal>
+      <div class="inv-browser-bar" aria-hidden="true">
+        <span></span><span></span><span></span>
+        <div class="inv-browser-url">caapnexus · Inventario de Productos</div>
+      </div>
+      <img src="assets/img/erp/inventario.webp" srcset="assets/img/erp/inventario-sm.webp 500w, assets/img/erp/inventario.webp 800w" sizes="(max-width: 760px) 92vw, 640px" alt="Captura real del módulo Inventario de Productos de CAAP NEXUS ERP" width="800" height="383" loading="lazy" decoding="async" data-zoom>
+    </figure>
+
+    <!-- Teléfono con el escáner: el video real va en assets/video/escaner.mp4 -->
+    <div class="inv-phone reveal-from-right delay-2" data-reveal>
+      <div class="inv-phone-body">
+        <span class="inv-phone-btn inv-phone-btn--a" aria-hidden="true"></span>
+        <span class="inv-phone-btn inv-phone-btn--b" aria-hidden="true"></span>
+        <div class="inv-phone-screen">
+          <span class="inv-phone-island" aria-hidden="true"></span>
+          <video class="inv-phone-video" id="scanVideo" muted loop playsinline preload="none" aria-label="Video del escáner del inventario desde el celular">
+            <source data-src="assets/video/escaner.mp4" type="video/mp4">
+          </video>
+          <div class="inv-phone-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></svg>
+            <strong>Video del escáner</strong>
+            <span>Aquí va la grabación real desde el celular</span>
+          </div>
+        </div>
+      </div>
+      <div class="inv-phone-badge">
+        <span class="inv-live-dot" aria-hidden="true"></span>
+        Escáner desde el celular
+      </div>
+    </div>
+  </div>
+
+  <div class="inv-features">
+    <article class="inv-feature" data-reveal>
+      <div class="inv-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></svg></div>
+      <h3>Escáner con la cámara</h3>
+      <p>Registra entradas y salidas escaneando con el celular, sin digitar códigos a mano.</p>
+    </article>
+    <article class="inv-feature" data-reveal>
+      <div class="inv-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg></div>
+      <h3>Etiquetas QR</h3>
+      <p>Genera e imprime etiquetas para que cada producto quede identificado en segundos.</p>
+    </article>
+    <article class="inv-feature" data-reveal>
+      <div class="inv-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
+      <h3>Centro de alertas <span class="inv-new">Nuevo</span></h3>
+      <p>Una campana te avisa cuando algo necesita tu atención, antes de que se vuelva un problema.</p>
+    </article>
+    <article class="inv-feature" data-reveal>
+      <div class="inv-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></div>
+      <h3>Stock en tiempo real</h3>
+      <p>Físico, en alistamiento, en ruta y disponible: sabes en qué estado está cada unidad.</p>
+    </article>
+    <article class="inv-feature" data-reveal>
+      <div class="inv-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M12 18v-6M9 15l3-3 3 3"/></svg></div>
+      <h3>Importador masivo</h3>
+      <p>Carga tus productos de una sola vez en lugar de crearlos uno por uno.</p>
+    </article>
+    <article class="inv-feature" data-reveal>
+      <div class="inv-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 8.6 8 9 4.6-.4 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></div>
+      <h3>Multi-empresa y roles</h3>
+      <p>Varias compañías en una sola plataforma, y cada persona ve solo lo que le corresponde.</p>
+    </article>
+  </div>
+
+  <div class="inv-cta" data-reveal>
+    <p>¿Quieres verlo funcionando con tus propios productos?</p>
+    <a href="https://wa.me/573224178831?text=Hola%20CAAP%20NEXUS%2C%20quiero%20una%20demo%20del%20Inventario%20complementado" target="_blank" class="btn btn-primary">Agenda una demo del inventario</a>
+  </div>
+</section>
+
 <!-- ===== CASOS DE ÉXITO ===== -->
 <section class="section projects" id="proyectos">
   <div class="section-head" data-reveal>
     <p class="eyebrow">Resultados reales</p>
     <h2 class="section-title">Casos de éxito en nuestros clientes</h2>
     <p class="section-sub">Cada proyecto parte de un problema real — así lo resolvimos, y esto dijeron ellos.</p>
+  </div>
+
+  <div class="logo-strip" data-reveal aria-label="Clientes: Marvin Remodelaciones, Fisioderma, Divinita y Nueva Moda">
+    <div class="logo-track">
+      <span class="logo-pill"><img src="assets/img/proyectos/logos/marvin.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Marvin Remodelaciones</span>
+      <span class="logo-pill"><img class="logo-light" src="assets/img/proyectos/logos/fisioderma.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Fisioderma</span>
+      <span class="logo-pill"><img src="assets/img/proyectos/logos/divinita.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Divinita</span>
+      <span class="logo-pill"><img src="assets/img/proyectos/logos/nueva-moda.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Nueva Moda</span>
+      <span class="logo-pill" aria-hidden="true"><img src="assets/img/proyectos/logos/marvin.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Marvin Remodelaciones</span>
+      <span class="logo-pill" aria-hidden="true"><img class="logo-light" src="assets/img/proyectos/logos/fisioderma.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Fisioderma</span>
+      <span class="logo-pill" aria-hidden="true"><img src="assets/img/proyectos/logos/divinita.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Divinita</span>
+      <span class="logo-pill" aria-hidden="true"><img src="assets/img/proyectos/logos/nueva-moda.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Nueva Moda</span>
+    </div>
   </div>
 
   <div class="case-grid" data-reveal>
@@ -389,7 +490,6 @@
         resultado se sienta propio — no como una plantilla adaptada.
       </p>
       <p class="about-founder">
-        <strong>Cristian Alexander Aponte Pinzón</strong> — Fundador y Desarrollador ·
         CAAP NEXUS nace en enero de 2026 con la idea de construir tecnología cercana,
         hecha a la medida de cada cliente, con la misma dedicación de un proyecto propio.
       </p>
@@ -476,6 +576,7 @@
       <div class="form-row">
         <label for="cf-service">Servicio de interés</label>
         <select id="cf-service">
+          <option>Inventario complementado</option>
           <option>Sistema ERP a medida</option>
           <option>Gestión de proyectos</option>
           <option>Página web</option>
@@ -503,6 +604,7 @@
         <nav class="footer-nav">
       <a href="#servicios">Servicios</a>
       <a href="#erp">ERP</a>
+      <a href="#inventario">Inventario</a>
       <a href="#proyectos">Casos de éxito</a>
       <a href="blog/index.html">Blog</a>
       <a href="#nosotros">Nosotros</a>

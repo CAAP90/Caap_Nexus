@@ -852,3 +852,231 @@ button{ font-family:inherit; cursor:pointer; }
 .blog-preview-grid{ max-width:480px; margin:0 auto 30px; }
 .blog-preview-grid .blog-card h3{ font-family: var(--font-display); color: var(--white); font-size:1.15rem; margin:10px 0; }
 .blog-preview-cta{ text-align:center; }
+
+/* ===================================================
+   NIVEL 2 — mejoras (oct 2026)
+   Todo lo de abajo se suma al diseño existente
+=================================================== */
+
+/* ---------- Barra de progreso de lectura ---------- */
+.scroll-progress{
+  position:fixed; top:0; left:0; right:0; height:3px; z-index:101;
+  background: var(--grad); transform-origin: 0 50%; transform: scaleX(0);
+  box-shadow: 0 0 12px rgba(62,209,255,.6); pointer-events:none;
+}
+
+/* ---------- Hero: aviso de lo nuevo ---------- */
+.hero-new{
+  margin-top: 34px; display:inline-flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center;
+  padding: 8px 16px 8px 8px; border-radius:100px;
+  background: rgba(14,26,58,.6); border:1px solid rgba(62,209,255,.3);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  color: var(--white); font-size:.88rem; font-weight:500;
+  transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+}
+.hero-new:hover{ border-color: var(--cyan); transform: translateY(-2px); box-shadow: 0 12px 30px -10px rgba(62,209,255,.5); }
+.hero-new-tag{
+  background: var(--grad); color:#05070f; font-weight:700; font-size:.72rem;
+  text-transform:uppercase; letter-spacing:.06em; padding:4px 10px; border-radius:100px;
+}
+
+/* ---------- Brillo que sigue el mouse en tarjetas ---------- */
+.service-card, .case-card, .inv-feature, .mv-card, .blog-card{ position:relative; overflow:hidden; }
+.service-card::before, .case-card::before, .inv-feature::before, .mv-card::before, .blog-card::before{
+  content:''; position:absolute; inset:0; pointer-events:none; opacity:0; transition: opacity .35s ease;
+  background: radial-gradient(380px circle at var(--mx,50%) var(--my,50%), rgba(62,209,255,.13), transparent 45%);
+}
+.service-card:hover::before, .case-card:hover::before, .inv-feature:hover::before, .mv-card:hover::before, .blog-card:hover::before{ opacity:1; }
+.service-card > *, .case-card > *, .inv-feature > *, .mv-card > *, .blog-card > *{ position:relative; }
+
+/* ---------- Servicios: 3 tarjetas + automatización discreta ---------- */
+.services-grid{ grid-template-columns: repeat(3, 1fr); }
+.service-icon{ transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+.service-card:hover .service-icon{ transform: translateY(-3px) scale(1.06); }
+.services-extra{
+  position:relative; z-index:1; margin-top: 26px;
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  color: var(--muted); font-size:.92rem;
+  padding: 14px 18px; border:1px dashed var(--line); border-radius:14px;
+}
+.services-extra svg{ width:22px; height:22px; color: var(--cyan); flex-shrink:0; }
+.services-extra strong{ color: var(--white); font-weight:600; }
+.services-extra a{ color: var(--cyan); font-weight:600; }
+.services-extra a:hover{ text-decoration:underline; }
+
+/* ---------- INVENTARIO COMPLEMENTADO ---------- */
+.inventory{ position:relative; overflow:hidden; overflow:clip; overflow-clip-margin: 40px; }
+.inventory::before{
+  content:''; position:absolute; top:120px; left:50%; width:900px; height:600px; margin-left:-450px;
+  background: radial-gradient(ellipse at center, rgba(30,95,255,.20), transparent 65%);
+  pointer-events:none; z-index:0;
+}
+.inventory > *{ position:relative; z-index:1; }
+
+.inv-stage{
+  position:relative; display:grid; grid-template-columns: minmax(0,1fr) 270px;
+  align-items:center; gap: 0; margin-bottom: 70px; padding-right: 10px;
+}
+.inv-browser{
+  margin:0; border-radius:14px; overflow:hidden; background:#fff;
+  border:1px solid rgba(62,209,255,.25);
+  box-shadow: 0 40px 80px -24px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.04), 0 0 60px -10px rgba(30,95,255,.35);
+  transform: perspective(1600px) rotateY(6deg) rotateX(2deg);
+  transition: transform .8s cubic-bezier(.2,.7,.2,1), opacity .8s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease;
+}
+.inv-browser[data-reveal].is-visible{ transform: perspective(1600px) rotateY(6deg) rotateX(2deg); }
+.inv-browser[data-reveal].is-visible:hover{ transform: perspective(1600px) rotateY(0) rotateX(0); }
+.inv-browser-bar{
+  display:flex; align-items:center; gap:7px; padding: 10px 14px;
+  background: linear-gradient(180deg,#eef1f7,#e3e8f1); border-bottom:1px solid #d5dbe6;
+}
+.inv-browser-bar > span{ width:11px; height:11px; border-radius:50%; background:#ff5f57; }
+.inv-browser-bar > span:nth-child(2){ background:#febc2e; }
+.inv-browser-bar > span:nth-child(3){ background:#28c840; }
+.inv-browser-url{
+  margin-left:12px; flex:1; max-width:340px; padding:4px 12px; border-radius:7px;
+  background:#fff; color:#5b6478; font-family: var(--font-mono); font-size:.7rem;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.inv-browser img{ width:100%; height:auto; cursor: zoom-in; }
+
+/* Teléfono realista */
+.inv-phone{ position:relative; margin-left:-90px; justify-self:end; z-index:2; }
+.inv-phone-body{
+  position:relative; width: 250px; aspect-ratio: 9 / 19.2; border-radius: 44px; padding: 9px;
+  background: linear-gradient(145deg,#3c4458 0%,#141a28 35%,#262d3f 70%,#4a5368 100%);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255,255,255,.18),
+    inset 0 0 0 4px #090c14,
+    0 50px 90px -20px rgba(0,0,0,.8),
+    0 0 50px -10px rgba(62,209,255,.35);
+  animation: invPhoneFloat 7s ease-in-out infinite;
+}
+@keyframes invPhoneFloat{ 0%,100%{ transform: translateY(0) rotate(-2deg); } 50%{ transform: translateY(-12px) rotate(-2deg); } }
+.inv-phone-btn{ position:absolute; width:4px; border-radius:3px; background: linear-gradient(90deg,#4a5368,#20263a); }
+.inv-phone-btn--a{ right:-3px; top:120px; height:64px; }
+.inv-phone-btn--b{ left:-3px; top:100px; height:40px; background: linear-gradient(90deg,#20263a,#4a5368); }
+.inv-phone-screen{
+  position:relative; width:100%; height:100%; border-radius: 36px; overflow:hidden;
+  background: radial-gradient(ellipse at 50% 30%, #13224a, #070c1a 75%);
+}
+.inv-phone-screen::after{
+  content:''; position:absolute; inset:0; pointer-events:none; border-radius:36px;
+  background: linear-gradient(115deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 30%);
+}
+.inv-phone-island{
+  position:absolute; top:11px; left:50%; width:78px; height:22px; margin-left:-39px;
+  border-radius:20px; background:#000; z-index:3;
+}
+.inv-phone-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition: opacity .6s ease; }
+.inv-phone.has-video .inv-phone-video{ opacity:1; }
+.inv-phone.has-video .inv-phone-placeholder{ display:none; }
+.inv-phone-placeholder{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:10px; padding: 24px; text-align:center; color: var(--muted);
+}
+.inv-phone-placeholder svg{ width:64px; height:64px; color: var(--cyan); }
+.inv-phone-placeholder strong{ color: var(--white); font-family: var(--font-display); font-size:1rem; }
+.inv-phone-placeholder span{ font-size:.78rem; line-height:1.4; }
+.inv-phone-badge{
+  position:absolute; left:-30px; bottom:60px; z-index:4;
+  display:flex; align-items:center; gap:9px; white-space:nowrap;
+  padding: 10px 16px; border-radius:100px; font-size:.82rem; font-weight:600;
+  background: rgba(14,26,58,.82); border:1px solid rgba(62,209,255,.35);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 30px -10px rgba(0,0,0,.6);
+}
+.inv-live-dot{ width:8px; height:8px; border-radius:50%; background:#28c840; box-shadow: 0 0 0 0 rgba(40,200,64,.7); animation: invLive 1.8s ease-out infinite; }
+@keyframes invLive{ 0%{ box-shadow: 0 0 0 0 rgba(40,200,64,.7); } 100%{ box-shadow: 0 0 0 10px rgba(40,200,64,0); } }
+
+/* Funciones */
+.inv-features{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.inv-feature{
+  background: var(--card); border:1px solid var(--line); border-radius:18px; padding: 26px 24px;
+  transition: transform .35s ease, border-color .35s ease, background .35s ease, opacity .8s cubic-bezier(.2,.7,.2,1);
+}
+.inv-feature:hover{ transform: translateY(-6px); border-color: rgba(62,209,255,.4); background: var(--card-hi); }
+.inv-feature-icon{
+  width:48px; height:48px; border-radius:14px; margin-bottom:18px;
+  display:flex; align-items:center; justify-content:center; color: var(--cyan);
+  background: linear-gradient(145deg, rgba(62,209,255,.18), rgba(30,95,255,.10));
+  border:1px solid rgba(62,209,255,.25);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+  transition: transform .45s cubic-bezier(.2,.8,.2,1);
+}
+.inv-feature:hover .inv-feature-icon{ transform: translateY(-3px) scale(1.06); }
+.inv-feature-icon svg{ width:24px; height:24px; }
+.inv-feature h3{ font-family: var(--font-display); font-size:1.08rem; font-weight:600; margin-bottom:8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.inv-feature p{ color: var(--muted); font-size:.9rem; }
+.inv-new{
+  font-family: var(--font-mono); font-size:.6rem; text-transform:uppercase; letter-spacing:.08em;
+  color:#05070f; background: var(--grad); padding:3px 8px; border-radius:100px; font-weight:700;
+}
+.inv-features .inv-feature:nth-child(2){ transition-delay:.08s; }
+.inv-features .inv-feature:nth-child(3){ transition-delay:.16s; }
+.inv-features .inv-feature:nth-child(5){ transition-delay:.08s; }
+.inv-features .inv-feature:nth-child(6){ transition-delay:.16s; }
+.inv-features .inv-feature:hover{ transition-delay:0s; }
+
+.inv-cta{
+  margin-top: 44px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  padding: 26px 30px; border-radius:20px;
+  background: linear-gradient(120deg, rgba(30,95,255,.16), rgba(62,209,255,.08));
+  border:1px solid rgba(62,209,255,.25);
+}
+.inv-cta p{ font-family: var(--font-display); font-size:1.2rem; font-weight:600; }
+
+/* ---------- Cinta de logos de clientes ---------- */
+.logo-strip{
+  position:relative; z-index:1; overflow:hidden; margin: -20px 0 44px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.logo-track{ display:flex; gap:18px; width:max-content; animation: logoMarquee 28s linear infinite; }
+.logo-strip:hover .logo-track{ animation-play-state: paused; }
+@keyframes logoMarquee{ from{ transform: translateX(0); } to{ transform: translateX(calc(-50% - 9px)); } }
+.logo-pill{
+  display:flex; align-items:center; gap:12px; white-space:nowrap;
+  padding: 8px 20px 8px 8px; border-radius:100px;
+  background: var(--card); border:1px solid var(--line);
+  font-family: var(--font-display); font-weight:600; font-size:.95rem; color: var(--white);
+}
+.logo-pill img{ width:40px; height:40px; border-radius:50%; object-fit:cover; background: var(--card-hi); }
+.logo-pill img.logo-light{ background:#f4efe4; }
+
+/* ---------- Casos: barras que se llenan al aparecer ---------- */
+.case-bar-fill{ transform-origin: 0 50%; transform: scaleX(0); transition: transform 1.4s cubic-bezier(.2,.7,.2,1) .3s; }
+.case-grid.is-visible .case-bar-fill{ transform: scaleX(1); }
+
+/* ---------- Casos: 2 columnas parejas en escritorio ---------- */
+@media (min-width: 761px){ .case-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+
+/* ---------- Trust bar: leve elevación ---------- */
+.trust-item{ transition: transform .35s ease; }
+.trust-item:hover{ transform: translateY(-4px); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px){
+  .services-grid{ grid-template-columns: repeat(2,1fr); }
+  .inv-features{ grid-template-columns: repeat(2,1fr); }
+  .inv-stage{ grid-template-columns: 1fr; justify-items:center; padding-right:0; }
+  .inv-browser, .inv-browser[data-reveal].is-visible, .inv-browser[data-reveal].is-visible:hover{ transform:none; width:100%; }
+  .inv-phone{ margin: -70px 0 0; justify-self:center; }
+}
+@media (max-width: 760px){
+  .inventory{ overflow-clip-margin: 0px; }
+  .services-grid{ grid-template-columns: 1fr; }
+  .inv-features{ grid-template-columns: 1fr; }
+  .inv-phone{ margin-top: -24px; }
+  .inv-phone-body{ width: 190px; border-radius:36px; }
+  .inv-phone-screen{ border-radius:29px; }
+  .inv-phone-badge{ left:50%; transform: translateX(-50%); bottom:-18px; }
+  .inv-cta{ padding: 22px; }
+  .hero-new{ font-size:.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .logo-track, .inv-phone-body, .inv-live-dot{ animation:none; }
+  .case-bar-fill{ transform:none; transition:none; }
+  .scroll-progress{ display:none; }
+}

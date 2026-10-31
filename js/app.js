@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
      /* ============ ERP LIGHTBOX ============ */
-  const erpShots = document.querySelectorAll('.erp-shot img');
+  const erpShots = document.querySelectorAll('.erp-shot img, img[data-zoom]');
   const erpLightbox = document.getElementById('erpLightbox');
   const erpLightboxImg = document.getElementById('erpLightboxImg');
   if (erpLightbox && erpLightboxImg) {
@@ -343,9 +343,95 @@ document.addEventListener('DOMContentLoaded', () => {
     io.observe(container);
   }
 
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduceMotion) {
     initTunnelCanvas(document.getElementById('nexusCanvas'));
     initNetworkCanvas(document.getElementById('footerCanvas'));
+  }
+
+  /* ============ NIVEL 2: BARRA DE PROGRESO ============ */
+  const progress = document.getElementById('scrollProgress');
+  if (progress && !reduceMotion) {
+    let ticking = false;
+    const updateProgress = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(updateProgress); }
+    }, { passive: true });
+    updateProgress();
+  }
+
+  /* ============ NIVEL 2: CONTADORES ANIMADOS ============ */
+  const counters = document.querySelectorAll('[data-count]');
+  if (counters.length && !reduceMotion) {
+    const runCounter = (el) => {
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1600;
+      const start = performance.now();
+      const step = (now) => {
+        const p = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          runCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(el => {
+      el.textContent = '0' + (el.dataset.suffix || '');
+      counterObserver.observe(el);
+    });
+  }
+
+  /* ============ NIVEL 2: BRILLO QUE SIGUE EL MOUSE ============ */
+  if (window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.service-card, .case-card, .inv-feature, .mv-card, .blog-card').forEach(card => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        card.style.setProperty('--my', `${e.clientY - r.top}px`);
+      });
+    });
+  }
+
+  /* ============ NIVEL 2: VIDEO DEL ESCÁNER EN EL TELÉFONO ============ */
+  // Pon el video real en assets/video/escaner.mp4 y se mostrará solo.
+  const scanVideo = document.getElementById('scanVideo');
+  if (scanVideo) {
+    const phone = scanVideo.closest('.inv-phone');
+    const source = scanVideo.querySelector('source[data-src]');
+    const loadVideo = () => {
+      if (!source || source.src) return;
+      source.src = source.dataset.src;
+      scanVideo.load();
+    };
+    scanVideo.addEventListener('loadeddata', () => {
+      phone.classList.add('has-video');
+      if (!reduceMotion) scanVideo.play().catch(() => {});
+    });
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadVideo();
+          if (phone.classList.contains('has-video') && !reduceMotion) scanVideo.play().catch(() => {});
+        } else if (!scanVideo.paused) {
+          scanVideo.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    videoObserver.observe(scanVideo);
   }
 
 });
