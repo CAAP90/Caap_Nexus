@@ -1205,3 +1205,11 @@ button{ font-family:inherit; cursor:pointer; }
   .promo-player .promo-play{ opacity:1; }
   .promo-tv{ display:none; }
 }
+
+/* ---------- Blog: vista previa con 2 artículos e imágenes en artículos ---------- */
+.blog-preview-grid{ max-width: 980px; display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:22px; }
+.blog-post h3{ font-family: var(--font-display); font-size:1.08rem; margin:24px 0 8px; color: var(--white); }
+.blog-post .eyebrow{ display:flex; margin-top:22px; margin-bottom:0; }
+.blog-figure{ margin: 22px 0 26px; }
+.blog-figure img{ width:100%; height:auto; border-radius:14px; border:1px solid var(--line); box-shadow: 0 24px 50px -20px rgba(0,0,0,.6); cursor: zoom-in; }
+.blog-figure figcaption{ color: var(--muted-2); font-size:.84rem; margin-top:10px; line-height:1.5; }
