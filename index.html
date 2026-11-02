@@ -126,6 +126,7 @@
       <a href="#servicios" class="nav-link">Servicios</a>
       <a href="#erp" class="nav-link">ERP</a>
       <a href="#inventario" class="nav-link">Inventario</a>
+      <a href="#video" class="nav-link">Video</a>
       <a href="#proyectos" class="nav-link">Casos de éxito</a>
       <a href="blog/index.html" class="nav-link">Blog</a>
       <a href="#nosotros" class="nav-link">Nosotros</a>
@@ -247,7 +248,7 @@
     <div class="erp-text" data-reveal>
       <p class="eyebrow">Nuestro propio sistema</p>
       <h2 class="section-title">Así construimos sistemas que se adaptan a tu negocio</h2>
-      <p class="section-sub">CAAP NEXUS ERP es nuestro propio sistema de gestión, construido con la misma filosofía que aplicamos a cada proyecto.</p>
+      <p class="section-sub">CAAP NEXUS 2.0 es nuestro propio sistema de gestión, construido con la misma filosofía que aplicamos a cada proyecto.</p>
 
       <div class="erp-benefits">
         <div class="erp-benefit"><h4>Multi-empresa</h4><p>Varias compañías, una sola plataforma</p></div>
@@ -262,15 +263,39 @@
         <div class="erp-shots">
       <div class="erp-shot shot-reportes reveal-from-left" data-reveal>
         <div class="erp-shot-float">
-          <img src="assets/img/erp/reportes.webp" srcset="assets/img/erp/reportes-sm.webp 500w, assets/img/erp/reportes.webp 800w" sizes="(max-width: 560px) 370px, 420px" alt="Reportes y análisis — CAAP NEXUS ERP" width="800" height="410" loading="lazy" decoding="async">
+          <img src="assets/img/erp/v2/inicio.webp" srcset="assets/img/erp/v2/inicio-sm.webp 600w, assets/img/erp/v2/inicio.webp 1200w" sizes="(max-width: 560px) 92vw, 440px" alt="Panel de inicio de CAAP NEXUS 2.0 con entregas por estado y actividad reciente" width="1200" height="544" loading="lazy" decoding="async">
         </div>
       </div>
       <div class="erp-shot shot-login reveal-from-right delay-1" data-reveal>
         <div class="erp-shot-float erp-shot-float-alt">
-          <img src="assets/img/erp/login.webp" srcset="assets/img/erp/login-sm.webp 500w, assets/img/erp/login.webp 800w" sizes="(max-width: 560px) 370px, 420px" alt="Inicio de sesión — CAAP NEXUS ERP" width="800" height="410" loading="lazy" decoding="async">
+          <img src="assets/img/erp/v2/login.webp" srcset="assets/img/erp/v2/login-sm.webp 600w, assets/img/erp/v2/login.webp 1200w" sizes="(max-width: 560px) 92vw, 440px" alt="Inicio de sesión de CAAP NEXUS 2.0" width="1200" height="568" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
+</section>
+
+<!-- ===== VIDEO PROMOCIONAL ===== -->
+<section class="section promo" id="video">
+  <div class="section-head promo-head" data-reveal>
+    <p class="eyebrow"><span class="eyebrow-dot"></span> Conócelo en 1 minuto</p>
+    <h2 class="section-title">Mira CAAP NEXUS en acción</h2>
+    <p class="section-sub">Entregas, inventario, escáner, etiquetas, Kardex y reportes: un recorrido rápido por el sistema funcionando.</p>
+  </div>
+
+  <div class="promo-player" id="promoPlayer">
+    <video class="promo-video" id="promoVideo" preload="none" playsinline
+      poster="assets/img/erp/v2/promo-poster.webp"
+      aria-label="Video promocional de CAAP NEXUS">
+      <source src="assets/video/caap-nexus-promo.mp4" type="video/mp4">
+    </video>
+    <div class="promo-tv" aria-hidden="true"></div>
+    <button type="button" class="promo-play" id="promoPlay" aria-label="Reproducir el video de CAAP NEXUS">
+      <span class="promo-play-ring" aria-hidden="true"></span>
+      <span class="promo-play-ring promo-play-ring--b" aria-hidden="true"></span>
+      <span class="promo-play-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+      <span class="promo-play-text">Ver video <span class="promo-play-time">1:00</span></span>
+    </button>
+  </div>
 </section>
 
 <!-- ===== INVENTARIO COMPLEMENTADO ===== -->
@@ -278,28 +303,37 @@
   <div class="section-head" data-reveal>
     <p class="eyebrow"><span class="eyebrow-dot"></span> Nuevo · Inventario complementado</p>
     <h2 class="section-title">Tu bodega bajo control, desde el computador o el celular</h2>
-    <p class="section-sub">El módulo de inventario de CAAP NEXUS ERP: escaneas, etiquetas con QR y el sistema te avisa a tiempo. Así se ve funcionando de verdad.</p>
+    <p class="section-sub">El módulo de inventario de CAAP NEXUS 2.0: escaneas, etiquetas con QR y el sistema te avisa a tiempo. Estas son capturas reales del sistema funcionando.</p>
   </div>
 
   <div class="inv-stage">
     <!-- Captura real del sistema en un navegador -->
-    <figure class="inv-browser reveal-from-left" data-reveal>
-      <div class="inv-browser-bar" aria-hidden="true">
-        <span></span><span></span><span></span>
-        <div class="inv-browser-url">caapnexus · Inventario de Productos</div>
+    <figure class="inv-browser">
+      <div class="inv-browser-bar">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+        <div class="inv-tabs" role="tablist" aria-label="Pantallas del inventario">
+          <button type="button" class="inv-tab is-active" role="tab" aria-selected="true"
+            data-src="assets/img/erp/v2/inventario-complementado.webp"
+            data-srcset="assets/img/erp/v2/inventario-complementado-sm.webp 600w, assets/img/erp/v2/inventario-complementado.webp 1200w"
+            data-alt="Captura real del Inventario complementado: materias primas, insumos y producto terminado con stock, disponible y alertas de mínimo">Inventario</button>
+          <button type="button" class="inv-tab" role="tab" aria-selected="false"
+            data-src="assets/img/erp/v2/etiquetas.webp"
+            data-srcset="assets/img/erp/v2/etiquetas-sm.webp 600w, assets/img/erp/v2/etiquetas.webp 1200w"
+            data-alt="Captura real de la pantalla Etiquetas: vista previa de una etiqueta QR lista para imprimir">Etiquetas QR</button>
+        </div>
       </div>
-      <img src="assets/img/erp/inventario.webp" srcset="assets/img/erp/inventario-sm.webp 500w, assets/img/erp/inventario.webp 800w" sizes="(max-width: 760px) 92vw, 640px" alt="Captura real del módulo Inventario de Productos de CAAP NEXUS ERP" width="800" height="383" loading="lazy" decoding="async" data-zoom>
+      <img id="invShot" src="assets/img/erp/v2/inventario-complementado.webp" srcset="assets/img/erp/v2/inventario-complementado-sm.webp 600w, assets/img/erp/v2/inventario-complementado.webp 1200w" sizes="(max-width: 760px) 92vw, 680px" alt="Captura real del Inventario complementado: materias primas, insumos y producto terminado con stock, disponible y alertas de mínimo" width="1200" height="554" loading="lazy" decoding="async" data-zoom>
     </figure>
 
     <!-- Teléfono con el escáner: el video real va en assets/video/escaner.mp4 -->
-    <div class="inv-phone reveal-from-right delay-2" data-reveal>
+    <div class="inv-phone">
       <div class="inv-phone-body">
         <span class="inv-phone-btn inv-phone-btn--a" aria-hidden="true"></span>
         <span class="inv-phone-btn inv-phone-btn--b" aria-hidden="true"></span>
         <div class="inv-phone-screen">
           <span class="inv-phone-island" aria-hidden="true"></span>
           <video class="inv-phone-video" id="scanVideo" muted loop playsinline preload="none" aria-label="Video del escáner del inventario desde el celular">
-            <source data-src="assets/video/escaner.mp4" type="video/mp4">
+            <source data-src="assets/video/escaner-inventario.mp4" type="video/mp4">
           </video>
           <div class="inv-phone-placeholder">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></svg>
@@ -323,8 +357,8 @@
     </article>
     <article class="inv-feature" data-reveal>
       <div class="inv-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg></div>
-      <h3>Etiquetas QR</h3>
-      <p>Genera e imprime etiquetas para que cada producto quede identificado en segundos.</p>
+      <h3>Etiquetas QR o código de barras</h3>
+      <p>Elige productos, cantidad y tamaño, e imprime en hoja carta o en impresora de etiquetas.</p>
     </article>
     <article class="inv-feature" data-reveal>
       <div class="inv-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
@@ -333,18 +367,18 @@
     </article>
     <article class="inv-feature" data-reveal>
       <div class="inv-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></div>
-      <h3>Stock en tiempo real</h3>
-      <p>Físico, en alistamiento, en ruta y disponible: sabes en qué estado está cada unidad.</p>
+      <h3>Stock, mínimos y lotes</h3>
+      <p>Stock, reservado y disponible por ítem, con aviso cuando algo baja del mínimo o un lote está por vencer.</p>
     </article>
     <article class="inv-feature" data-reveal>
       <div class="inv-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M12 18v-6M9 15l3-3 3 3"/></svg></div>
-      <h3>Importador masivo</h3>
-      <p>Carga tus productos de una sola vez en lugar de crearlos uno por uno.</p>
+      <h3>Carga y exporta en Excel</h3>
+      <p>Sube tus productos desde un archivo de una sola vez y exporta el inventario cuando lo necesites.</p>
     </article>
     <article class="inv-feature" data-reveal>
       <div class="inv-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 8.6 8 9 4.6-.4 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></div>
-      <h3>Multi-empresa y roles</h3>
-      <p>Varias compañías en una sola plataforma, y cada persona ve solo lo que le corresponde.</p>
+      <h3>Materias primas a producto terminado</h3>
+      <p>Clasifica insumos, materias primas y producto terminado, con Kardex de cada movimiento.</p>
     </article>
   </div>
 

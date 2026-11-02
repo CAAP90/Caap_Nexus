@@ -406,6 +406,72 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ============ NIVEL 2: CORTINA DEL INVENTARIO ============ */
+  const invStage = document.querySelector('.inv-stage');
+  if (invStage) {
+    if (reduceMotion) invStage.classList.add('curtain-open');
+    else {
+      const curtainObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) { invStage.classList.add('curtain-open'); curtainObserver.disconnect(); }
+        });
+      }, { threshold: 0.3 });
+      curtainObserver.observe(invStage);
+    }
+  }
+
+  /* ============ NIVEL 2: PESTAÑAS DE CAPTURAS DEL INVENTARIO ============ */
+  const invShot = document.getElementById('invShot');
+  const invTabs = document.querySelectorAll('.inv-tab');
+  if (invShot && invTabs.length) {
+    invTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        if (tab.classList.contains('is-active')) return;
+        invTabs.forEach(t => { t.classList.remove('is-active'); t.setAttribute('aria-selected', 'false'); });
+        tab.classList.add('is-active');
+        tab.setAttribute('aria-selected', 'true');
+        invShot.classList.add('is-swapping');
+        setTimeout(() => {
+          invShot.srcset = tab.dataset.srcset;
+          invShot.src = tab.dataset.src;
+          invShot.alt = tab.dataset.alt;
+          invShot.onload = () => invShot.classList.remove('is-swapping');
+          if (invShot.complete) invShot.classList.remove('is-swapping');
+        }, reduceMotion ? 0 : 250);
+      });
+    });
+  }
+
+  /* ============ NIVEL 2: VIDEO PROMOCIONAL ============ */
+  const promoVideo = document.getElementById('promoVideo');
+  const promoPlay = document.getElementById('promoPlay');
+  const promoPlayer = document.getElementById('promoPlayer');
+  if (promoVideo && promoPlay && promoPlayer) {
+    if (reduceMotion) promoPlayer.classList.add('tv-on');
+    else {
+      const tvObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) { promoPlayer.classList.add('tv-on'); tvObserver.disconnect(); }
+        });
+      }, { threshold: 0.45 });
+      tvObserver.observe(document.getElementById('video'));
+    }
+    promoPlay.addEventListener('click', () => {
+      promoVideo.controls = true;
+      promoVideo.play().catch(() => {});
+    });
+    promoVideo.addEventListener('play', () => promoPlayer.classList.add('is-playing'));
+    promoVideo.addEventListener('ended', () => {
+      promoPlayer.classList.remove('is-playing');
+      promoVideo.controls = false;
+      promoVideo.load();
+    });
+    const promoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (!entry.isIntersecting && !promoVideo.paused) promoVideo.pause(); });
+    }, { threshold: 0.2 });
+    promoObserver.observe(promoPlayer);
+  }
+
   /* ============ NIVEL 2: VIDEO DEL ESCÁNER EN EL TELÉFONO ============ */
   // Pon el video real en assets/video/escaner.mp4 y se mostrará solo.
   const scanVideo = document.getElementById('scanVideo');
